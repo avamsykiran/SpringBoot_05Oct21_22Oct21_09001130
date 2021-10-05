@@ -70,4 +70,54 @@ Spring
         Spring Tool Suite latest
         MySQL
 
-    
+    Spring Core and Context and SpEl
+    --------------------------------------------------------------------------------------------
+
+        DI / IoC
+
+            IoC     is an idea
+
+                    - Decompose our appliction into independent isolated interactive components.
+                    - Parellel skeleton or framework that plays the role of CONDUCTOR,
+                        is th one who keeps track of all the lsited Components and 
+                        supplies them to the mail flow of execution when each of them is needed.
+
+            Dependecy Injection is a concept of achving IoC....
+
+                Object of a Component is called a BEAN
+
+                - Setter Injection
+                - Field Injection
+                - Cosntructor Injection
+                - Method Injection
+
+            ApplicationContext          is also called the bean container.
+
+                a container is the one who manages the life cycle of a bean,
+                    creating a bean
+                    suppling a bean
+                    destroying bean
+
+                ClassPathXmlApplciationContext
+                AnnotationApplicationContext
+                ...etc
+
+                Bean Configuaration
+                    - informing the contaienr 
+                        () how many bean needed?
+                        () how are they dependent?
+                        () how many of them are needed?
+
+                Xml Based Configuaration
+                Annotation Based Configuaration
+                Java Based Configuaration
+
+                    @Configuaration
+                    @ComponentScan({"basePackage1","bsePackage2..."})
+                    @PropertySource("")
+                    @Component("id")
+                    @value
+                    @Autowired
+
+
+
