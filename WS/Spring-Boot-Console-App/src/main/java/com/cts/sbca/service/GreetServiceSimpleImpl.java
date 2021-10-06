@@ -1,4 +1,4 @@
-package com.cts.scd.service;
+package com.cts.sbca.service;
 
 import org.springframework.stereotype.Service;
 

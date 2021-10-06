@@ -1,4 +1,4 @@
-package com.cts.scd.view;
+package com.cts.sbca.view;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.cts.scd.service.GreetService;
+import com.cts.sbca.service.GreetService;
 
 @Component
 public class DefaultView {
