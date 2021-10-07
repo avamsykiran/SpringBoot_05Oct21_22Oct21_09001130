@@ -199,7 +199,7 @@ Spring
             configuaration drop to minimum. As spring boot enables
             AutoConfiguaration.
 
-            1. AutoConfiguaration that enable RAD
+            1. AutoConfiguaration that enables RAD
             2. Embeded Servers thsi enables Serverless applications suitable for containerization.
 
             a. Use Spring Initializer http://start.spring.io
