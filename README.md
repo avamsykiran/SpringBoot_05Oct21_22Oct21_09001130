@@ -212,6 +212,87 @@ Spring
                                     @ProeprtySource
                                     @ComponentScan
 
+        Spring Web MVC on Spring Boot
+        ----------------------------------------------------------------
+
+            Multi-Layer Archetecture        SOLID
+
+                PersistenceUnit <--> [ DAO -----(DTO)-------- SERVICE -------(DTO)-------- UI ] <-->  End User
+                 (FS/Ddatabase)         Persistence Logic   Bussienss Logic     Presentation Logic
+
+            Model View Controller Archetecture
+
+    PersistenceUnit <--> [ Repostory ---(model)--- SERVICE ---(model)--- Controller --(model)-- View ] <-->  End User
+    (FS/Ddatabase)         Persistence Logic   Bussienss Logic              Flow Logic      Presentation Logic
+
+
+            Single Front Controller Desgin Pattern (MVC)
+
+                Repo1           Service1            Controller1
+    PU  <---->  Repo2   <-M->   Service2    <-M-->  Controller2    <----- FrontController      <-----REQ
+                Repo3           Service3            Controller3     viewName-->
+                                                                             |
+                                                                             | (model)
+                                                                             |
+                                                                            VIEWS ----------RESP------------->
+
+        Spring Web MVC
+
+                FrontController?        DispatcherServlet       /*  
+                Controller?             is any POJO that is marked with @Controller
+                                        these controller must have method to handle an incoming request,
+                                        and those methods are called request handlers or actions
+
+                                            Each action must return 
+                                                1. a view name as String  or 
+                                                2. ModelAndView cotaining a view name and model.
+
+                How can FrontController know to which action of which controller shall
+                an incoming request be passed to??
+
+                            UrlHandlerMapping
+                                BeanNameUrlHandlerMapping
+                                SimpleUrlHandlerMapping     (default)
+                                    @RequestMapping(value="url",method=Method.(POST/GET..))
+                                    on the controller and ont eh action method.
+
+                How does a view is selected based on the view name given 
+                by the action method??
+
+                            ViewResolver
+                                XmlResourceViewResolver     .xml (viewname and actual view paths)
+                                MessageBundleResourceViewResolver .properties (viewname and actual view paths)
+                                InternalResourceViewResolver (default)
+
+                                    actual view path = prefix + viewname + suffix
+
+
+                @Controller
+                @RequestMapping(value="",method=Method.GET)
+                    @GetMapping
+                    @PostMapping
+                    @PutMapping ...etc
+                                        HTTP Methods
+                                            GET
+                                            POST
+
+                @RequestParam
+                @ModelAttribute
+
+                Assignemnt
+                --------------------
+                    Employee
+                        empId : Long
+                        fullName: String
+                        basic: Double
+                        joinDate: LocalDate
+                        ta: Double  //5% of Basic 
+                        hra: Double //7% of the Basic
+                        grossPay: Double
+                        tds: Double //10% of grossPay
+                        netPay: Double 
+                        experience: Integer //years between joinDate and currentDate
+
 
 
 
