@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cts.sbwa.model.Loan;
+import com.cts.sbwa.model.LoanType;
 import com.cts.sbwa.service.LoanService;
 
 @Controller
@@ -17,6 +18,11 @@ public class LoanController {
 
 	@Autowired	
 	private LoanService loanService;
+	
+	@ModelAttribute("loanTypes")
+	public LoanType[] getLoanTypes() {
+		return LoanType.values();
+	}
 	
 	@GetMapping
 	public ModelAndView loanAction() {

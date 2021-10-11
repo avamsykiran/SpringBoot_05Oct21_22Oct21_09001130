@@ -22,6 +22,9 @@
  			<li class="nav-item">
  				<a href="/loan" class="nav-link">Loan Example</a>
  			</li>
+ 			<li class="nav-item">
+ 				<a href="/friends" class="nav-link">Friends Example</a>
+ 			</li>
  		</ul>
  	</nav>
  	

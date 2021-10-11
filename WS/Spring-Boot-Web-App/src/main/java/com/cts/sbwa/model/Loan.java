@@ -6,15 +6,17 @@ public class Loan {
 	private double rateOfInterest;
 	private double term;
 	private double emi;
+	private LoanType type;
 	
 	public Loan() {}
 
-	public Loan(double prinicpal, double rateOfInterest, double term, double emi) {
+	public Loan(double prinicpal, double rateOfInterest, double term, double emi,LoanType type) {
 		super();
 		this.prinicpal = prinicpal;
 		this.rateOfInterest = rateOfInterest;
 		this.term = term;
 		this.emi = emi;
+		this.type=type;
 	}
 
 	public double getPrinicpal() {
@@ -47,6 +49,14 @@ public class Loan {
 
 	public void setEmi(double emi) {
 		this.emi = emi;
+	}
+
+	public LoanType getType() {
+		return type;
+	}
+
+	public void setType(LoanType type) {
+		this.type = type;
 	}
 	
 	

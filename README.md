@@ -278,6 +278,7 @@ Spring
 
                 @RequestParam
                 @ModelAttribute
+                @SessionAttribute
 
                 Assignemnt
                 --------------------
@@ -293,6 +294,25 @@ Spring
                         netPay: Double 
                         experience: Integer //years between joinDate and currentDate
 
+                
+                Assignemnt
+                ---------------------------
+                    Item
+                        icode
+                        name
+                        unit        PACK/KG/Liter...
+                        rate
+                        category    BEVERAGE/PULSES/CERALS/FARM...
+
+                    ItemController
+
+                        addItem         accept an item from a form and add it to a 'List<Items> stock'
+                                        and display all of the itmes in 'items-page'
+
+                        removeItem       accept an item code and delete it from 'List<Items> stock'
+                                        and display all of the itmes in 'items-page'
+
+                            Where 'List<Items> stock' must be maintaiend in a session.
 
 
 
