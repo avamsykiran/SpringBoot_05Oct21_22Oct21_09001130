@@ -293,7 +293,6 @@ Spring
                         tds: Double //10% of grossPay
                         netPay: Double 
                         experience: Integer //years between joinDate and currentDate
-
                 
                 Assignemnt
                 ---------------------------
@@ -315,5 +314,26 @@ Spring
                             Where 'List<Items> stock' must be maintaiend in a session.
 
 
+    Spring Data with Spring Web on Spring Boot
+    -----------------------------------------------------------
+
+        Spring Data is a spring module that can
+        generate the DAO implementations (Repositories) dynamically
+        from a mapped entity.
+
+        JpaRepository       @Repository
 
 
+    Spring Server Side Validations (hibernate-validator library)
+    -------------------------------------------------------------
+
+        @NotNull
+        @NotEmpty
+        @NotBlank
+        @Min
+        @Max
+        @Size
+        @Pattern
+        @PastDate
+        @FuteureDate
+        ...etc
