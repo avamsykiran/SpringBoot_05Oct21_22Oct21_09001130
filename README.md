@@ -276,7 +276,8 @@ Spring
                                             GET
                                             POST
 
-                @RequestParam
+                @RequestParam           QueryString     /editEmp?empId=1
+                @PathVariable           PathParameters  /editEmp/1
                 @ModelAttribute
                 @SessionAttribute
 
@@ -337,3 +338,19 @@ Spring
         @PastDate
         @FuteureDate
         ...etc
+
+          
+                Assignemnt
+                ---------------------------
+                    Item
+                        icode
+                        name
+                        unit        PACK/KG/Liter...
+                        rate
+                        category    BEVERAGE/PULSES/CERALS/FARM...
+
+                    ItemController
+
+                      to perform all CRUD Operatons upon the above entity.
+                      using Spring Data and with validations.
+

@@ -53,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void deleById(Long id) throws EmployeeException {
+	public void deleteById(Long id) throws EmployeeException {
 		if(!empRepo.existsById(id)) {
 			throw new EmployeeException("Employee not found to delete");
 		}else {

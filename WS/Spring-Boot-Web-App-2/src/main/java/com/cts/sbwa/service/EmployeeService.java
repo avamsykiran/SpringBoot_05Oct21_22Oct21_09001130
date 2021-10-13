@@ -11,5 +11,5 @@ public interface EmployeeService {
 	Employee getById(Long id);
 	Employee add(Employee emp)  throws EmployeeException;
 	Employee update(Employee emp) throws EmployeeException;
-	void deleById(Long id) throws EmployeeException;
+	void deleteById(Long id) throws EmployeeException;
 }

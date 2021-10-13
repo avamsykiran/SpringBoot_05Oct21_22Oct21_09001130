@@ -13,6 +13,7 @@
 						<th>Name</th>
 						<th>Salary</th>
 						<th>Join Date</th>
+						<th>Action</th>
 				</thead>
 				<tbody>
 					<c:forEach items="${emps }" var="e">
@@ -21,6 +22,14 @@
 							<td>${e.fullName }</td>
 							<td>${e.salary }</td>
 							<td>${e.joinDate }</td>
+							<td>
+								<a href="/editEmp/${e.empId }" class="btn btn-primary btn-sm mr-2">
+									EDIT
+								</a>
+								<a href="/deleteEmp/${e.empId }" class="btn btn-danger btn-sm mr-2">
+									DELETE
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

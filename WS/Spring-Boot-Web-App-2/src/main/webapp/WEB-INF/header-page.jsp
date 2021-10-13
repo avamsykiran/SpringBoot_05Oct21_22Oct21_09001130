@@ -13,6 +13,9 @@
  			<li class="nav-item">
  				<a href="/home" class="nav-link">Home</a>
  			</li>
+ 			<li class="nav-item">
+ 				<a href="/addEmp" class="nav-link">New Employee</a>
+ 			</li>
  		</ul>
  	</nav>
  	
