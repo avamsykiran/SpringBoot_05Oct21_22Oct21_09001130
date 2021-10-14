@@ -212,8 +212,8 @@ Spring
                                     @ProeprtySource
                                     @ComponentScan
 
-        Spring Web MVC on Spring Boot
-        ----------------------------------------------------------------
+    Spring Web MVC on Spring Boot
+    ----------------------------------------------------------------
 
             Multi-Layer Archetecture        SOLID
 
@@ -336,9 +336,8 @@ Spring
         @Size
         @Pattern
         @PastDate
-        @FuteureDate
+        @FutureDate
         ...etc
-
           
                 Assignemnt
                 ---------------------------
@@ -354,3 +353,59 @@ Spring
                       to perform all CRUD Operatons upon the above entity.
                       using Spring Data and with validations.
 
+    Spring Rest on Spring Boot
+    ----------------------------------------------------------------
+
+        Muti-Faced Apps
+        --------------------
+                                                    Web App                 <---> Users
+           Database <-->  WebServices   <--->       Standalone GUI App      <---> Users
+                                                    Mobile App              <---> Users
+                                                        Andriod App
+                                                        IOS App ...etc.,
+
+            WebServices
+                SOAP    (Simple Object Access Protocol)     XML as medium of communication
+
+                    - Standard Set for sharing and creating End points (URLS)
+                    - We can not share or publish binary data like iamges/binary files ..etc
+                    - No proper error propagation system
+
+                HTTP    Based WebServices   REST api
+                                            Representational state transfer
+
+                    + http protocol already supports any sort of data sharing text/xml/binary/graphics..etc
+                                text        JSON
+                                text        XML
+                                bianry      images/binary files
+
+                    + a standard communcation set up can be made as below
+
+                        1. Http Status codes can be used for error propagation
+                                1xx         confirm the reception of a req and states that the req is being processed
+                                2xx         confirm the succesful completion of the reqeust
+                                3xx         confirm a request redirection
+                                4xx         inform that the reqeust can not be process due to client side issue
+                                5xx         inform that the reqeust can not be process due to server side issue
+
+                        2. Http Methods can be used to represent an operation on a singel end poitn per entity
+
+                            GET     /emps          /depts              retrive all emps or depts
+                            GET     /emps/{empid}  /depts/{deptId}     retrive a record for the given id        
+                            POST    /emps          /depts              insert
+                            PUT     /emps          /depts              Full record Update 
+                            PATCH   /emps          /depts              Partial Update 
+                            DELETE  /emps          /depts              delete
+
+                        JAX-rs
+                        Spring REST ..etc
+
+                        Spring REST
+                                @RestController     =  @Controller @ResposneBody 
+                                    actions in a restcontroler returns ResponseEntity (responseBody,httpStatus)
+                                
+                                @RequestBody
+
+                        REST Client
+                            Postman
+                            Insomnia ..etc
