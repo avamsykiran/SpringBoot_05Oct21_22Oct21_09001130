@@ -14,7 +14,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepo empRepo;
-	
+
 	@Override
 	public List<Employee> getAll() {
 		return empRepo.findAll();
@@ -27,38 +27,63 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee add(Employee emp) throws EmployeeException {
-		
-		if(emp!=null) {
-			if(emp.getEmpId()!=null && empRepo.existsById(emp.getEmpId())) {
-				throw new EmployeeException("Duplicate employee record");
-			}else {
-				emp=empRepo.save(emp);		
+
+		if (emp != null) {
+			if (emp.getEmpId() != null && empRepo.existsById(emp.getEmpId())) {
+				throw new EmployeeException("Duplicate empId for employee record");
 			}
+
+			if (empRepo.existsByEmailId(emp.getEmailId())) {
+				throw new EmployeeException("Duplicate email id for the employee record");
+			}
+
+			emp = empRepo.save(emp);
+
 		}
-		
+
 		return emp;
 	}
 
 	@Override
 	public Employee update(Employee emp) throws EmployeeException {
-		if(emp!=null) {
-			if(emp.getEmpId()==null || !empRepo.existsById(emp.getEmpId())) {
+		if (emp != null) {
+			if (emp.getEmpId() == null || !empRepo.existsById(emp.getEmpId())) {
 				throw new EmployeeException("Employee not found to update");
-			}else {
-				emp=empRepo.save(emp);		
 			}
+			
+			Employee temp = empRepo.findByEmailId(emp.getEmailId());
+			if(temp!=null && !temp.getEmpId().equals(emp.getEmpId())) {
+				throw new EmployeeException("Duplicate email id for the employee record");
+			}
+			
+			emp = empRepo.save(emp);
 		}
-		
-		return emp;	
+
+		return emp;
 	}
 
 	@Override
 	public void deleteById(Long id) throws EmployeeException {
-		if(!empRepo.existsById(id)) {
+		if (!empRepo.existsById(id)) {
 			throw new EmployeeException("Employee not found to delete");
-		}else {
+		} else {
 			empRepo.deleteById(id);
 		}
+	}
+
+	@Override
+	public Employee getByEmail(String emailId) {
+		return empRepo.findByEmailId(emailId);
+	}
+
+	@Override
+	public List<Employee> getAllInSalRange(double lb, double ub) {
+		return empRepo.findAllInSalaryRange(lb, ub);
+	}
+
+	@Override
+	public List<Employee> getAllByFullName(String fullName) {
+		return empRepo.findAllByFullName("%"+fullName+"%");
 	}
 
 }

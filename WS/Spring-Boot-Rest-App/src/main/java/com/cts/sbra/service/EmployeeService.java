@@ -12,4 +12,7 @@ public interface EmployeeService {
 	Employee add(Employee emp)  throws EmployeeException;
 	Employee update(Employee emp) throws EmployeeException;
 	void deleteById(Long id) throws EmployeeException;
+	Employee getByEmail(String emailId);
+	List<Employee> getAllInSalRange(double lb,double ub);
+	List<Employee> getAllByFullName(String fullName);
 }

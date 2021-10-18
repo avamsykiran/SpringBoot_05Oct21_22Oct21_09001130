@@ -324,6 +324,14 @@ Spring
 
         JpaRepository       @Repository
 
+                boolean existsByFieldName(Type fieldName)
+                Entity findByFieldName(Type fieldName)
+                List<Entity>  findAllByFieldName(Type fieldName)
+
+                @Query("jpql")
+                method signature.....
+
+
 
     Spring Server Side Validations (hibernate-validator library)
     -------------------------------------------------------------
@@ -409,3 +417,25 @@ Spring
                         REST Client
                             Postman
                             Insomnia ..etc
+
+
+                Assignemnt
+                ---------------------------
+                    Item
+                        icode
+                        name
+                        unit        PACK/KG/Liter...
+                        rate
+                        category    BEVERAGE/PULSES/CERALS/FARM...
+
+                    ItemRepo    <------- JpaRepository
+
+                        + a method to check if an item with a specific unit exists or not
+                        + a method to check if an item with a specific category exists or not
+                        + a method to retrive all item for a givne category
+                        + a method to retrive all item having rate in a given range
+                
+                    ItemRestController
+
+                      to perform all CRUD Operatons upon the above entity.
+                      using Spring Data and with validations.and retrival operatons as well.

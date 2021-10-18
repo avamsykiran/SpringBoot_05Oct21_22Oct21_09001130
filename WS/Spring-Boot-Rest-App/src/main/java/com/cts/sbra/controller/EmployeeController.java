@@ -33,7 +33,10 @@ public class EmployeeController {
 		return new ResponseEntity<>(empService.getAll(),HttpStatus.OK);
 	}
 
-	@GetMapping("/{eid}")
+	/*
+	 * http://localhost:7777/emps/1
+	 * */
+	@GetMapping("/{eid:[1-9][0-9]*}")
 	public ResponseEntity<Employee> getByIdAction(@PathVariable("eid")Long empId) {
 		
 		Employee emp = empService.getById(empId);
@@ -43,6 +46,38 @@ public class EmployeeController {
 		}
 		
 		return new ResponseEntity<>(emp,HttpStatus.OK);
+	}
+	
+	/*
+	 * http://localhost:7777/emps/vivek@gmail.com
+	 * */
+	@GetMapping("/{emailid:.+@.+}")
+	public ResponseEntity<Employee> getByEmailIdAction(@PathVariable("emailid")String emailId) {
+		
+		Employee emp = empService.getByEmail(emailId);
+		
+		if(emp==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>(emp,HttpStatus.OK);
+	}
+	
+	/*
+	 * http://localhost:7777/emps/Vamsy
+	 * */
+	@GetMapping("/{enm:[A-Za-z]+}")
+	public ResponseEntity<List<Employee>> getByFullNameAction(@PathVariable("enm")String fullName) {
+		return new ResponseEntity<>(empService.getAllByFullName(fullName),HttpStatus.OK);
+	}
+	
+	/*
+	 * http://localhost:7777/emps/4500/5500
+	 * */
+	@GetMapping("/{lb:[1-9][0-9]*}/{ub:[1-9][0-9]*}")
+	public ResponseEntity<List<Employee>> getByInSalRangeAction
+	(@PathVariable("lb")double lb,@PathVariable("ub")double ub) {
+		return new ResponseEntity<>(empService.getAllInSalRange(lb, ub),HttpStatus.OK);
 	}
 	
 	@PostMapping

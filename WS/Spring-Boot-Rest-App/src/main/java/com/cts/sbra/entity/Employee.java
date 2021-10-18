@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -25,24 +26,28 @@ public class Employee {
 	@Id
 	@GeneratedValue
 	@Column(name="eid")
-	public Long empId;
+	private Long empId;
 	
 	@NotBlank(message = "Full Name is a mandate field")
 	@Size(min = 5,max = 50,message = "Full Name is expected to be 5 to 50 chars in length")
 	@Column(name="fnm",nullable = false)
-	public String fullName;
+	private String fullName;
 	
 	@NotNull(message="Salary is a mandate field")
 	@Min(value = 5000,message="Salary must be atlest 5000")
 	@Max(value = 500000,message="Salary must be atmax 500000")
 	@Column(name="sal",nullable = false)
-	public Double salary;
+	private Double salary;
 	
 	@NotNull(message="Join Date is a mandate field")
 	@DateTimeFormat(iso = ISO.DATE)
 	@PastOrPresent(message="Join Date can not be a future date")
 	@Column(name="jdt",nullable = false)
-	public LocalDate joinDate;
+	private LocalDate joinDate;
+	
+	@Email(message="Expecting a vl;aid email id")
+	@Column(name="email",nullable = true,unique = true)
+	private String emailId;
 	
 	public Employee() {}
 
@@ -76,6 +81,14 @@ public class Employee {
 
 	public void setJoinDate(LocalDate joinDate) {
 		this.joinDate = joinDate;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	
 	
