@@ -418,7 +418,6 @@ Spring
                             Postman
                             Insomnia ..etc
 
-
                 Assignemnt
                 ---------------------------
                     Item
@@ -439,3 +438,33 @@ Spring
 
                       to perform all CRUD Operatons upon the above entity.
                       using Spring Data and with validations.and retrival operatons as well.
+
+
+           Database <-->               REST API          <-RestTemplate->     Web MVC App             <---> Users
+
+                        Spring Data + Spring REST on Spring Boot      Spring Web MVC on Spring Boot
+
+                Assignemnt
+                ---------------------------
+                Part 1: Create a Spring REST App on Spring boot as below
+                    Item
+                        icode
+                        name
+                        unit        PACK/KG/Liter...
+                        rate
+                        category    BEVERAGE/PULSES/CERALS/FARM...
+
+                    ItemRepo    <------- JpaRepository
+
+                        + a method to check if an item with a specific unit exists or not
+                        + a method to check if an item with a specific category exists or not
+                        + a method to retrive all item for a givne category
+                        + a method to retrive all item having rate in a given range
+                
+                    ItemRestController
+
+                      to perform all CRUD Operatons upon the above entity.
+                      using Spring Data and with validations.and retrival operatons as well.
+                
+                Part 2: Create a Spring Web MVC App on Spring boot as below to consume
+                        the rest endpoints created in Part 1.
