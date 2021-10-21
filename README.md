@@ -468,3 +468,190 @@ Spring
                 
                 Part 2: Create a Spring Web MVC App on Spring boot as below to consume
                         the rest endpoints created in Part 1.
+
+    Spring Boot - Externalized Configuaration
+    ----------------------------------------------------------------
+
+        application.properties      holds all externalizable property value that can be
+                                    accessed using @Value  Field injector.
+
+        application-test.properties      
+                                    holds all externalizable property value that can be
+                                    accessed using @Value  Field injector while testing.
+                                    and must be configured using @TestProeprtySource
+
+        https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/boot-features-external-config.html
+
+    Spring Boot - Actuator
+    ----------------------------------------------------------------
+
+        Actuator is mainly used to expose operational information about the running application — health, metrics, info, dump, env, etc. It uses HTTP endpoints or JMX beans to enable us to interact with it.
+
+        Monitoring our app, gathering metrics, understanding traffic..etc.,.
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        Enable all endpoints
+            management.endpoints.web.exposure.include=*
+
+        Enable a specific endpoint
+            management.endpoint.beans.enabled=true
+
+        After enabling all endpoint a specific endpoint can be disabled as
+            management.endpoints.web.exposure.exclude=loggers
+
+        Exposed Endpoints
+
+        /actuator
+
+            /auditevents lists security audit-related events such as user login/logout. Also, we can filter by principal or type among other fields.
+
+            /beans returns all available beans in our BeanFactory. Unlike /auditevents, it doesn't support filtering.
+            /conditions, formerly known as /autoconfig, builds a report of conditions around autoconfiguration.
+            /configprops allows us to fetch all @ConfigurationProperties beans.
+            /env returns the current environment properties. Additionally, we can retrieve single properties.
+            /flyway provides details about our Flyway database migrations.
+            /health summarizes the health status of our application.
+            /heapdump builds and returns a heap dump from the JVM used by our application.
+            /info returns general information. It might be custom data, build information or details about the latest commit.
+            /liquibase behaves like /flyway but for Liquibase.
+            /logfile returns ordinary application logs.
+            /loggers enables us to query and modify the logging level of our application.
+            /metrics details metrics of our application. This might include generic metrics as well as custom ones.
+            /scheduledtasks provides details about every scheduled task within our application.
+            /sessions lists HTTP sessions given we are using Spring Session.
+            /shutdown performs a graceful shutdown of the application.
+            /threaddump dumps the thread information of the underlying JVM.
+
+    Spring Boot DevTools
+    ------------------------------------------------------------------------------
+
+    <dependency>  
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-devtools</artifactId>  
+        <scope>runtime<scope >  
+    </dependency>  
+
+    Property Defaults
+    Automatic Restart
+    LiveReload
+    
+    Spring Boot Testing
+    ------------------------------------------------------------------------------
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        spring.datasource.url = jdbc:h2:mem:test
+        spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.H2Dialect
+
+
+    Integration Testing - No Mocks
+    ------------------------------------
+       @ExtendWith(SpringExtension.class)
+        @SpringBootTest(
+        SpringBootTest.WebEnvironment.MOCK,
+        classes = Application.class)
+        @AutoConfigureMockMvc
+        @TestPropertySource(locations = "classpath:application-integrationtest.properties")
+        public class EmployeeRestControllerIntegrationTest {
+
+            @Autowired
+            private MockMvc mvc;
+
+            @Autowired
+            private EmployeeRepository repository;
+
+            @Test
+            public void givenEmployees_whenGetEmployees_thenStatus200() throws Exception {
+
+                createTestEmployee("bob");
+
+                mvc.perform(get("/api/employees")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].name", is("bob")));
+            }
+        }
+
+    Unit testing Service - mocking repo
+    -------------------------------------------
+    @ExtendWith(SpringExtension.class)
+    public class EmployeeServiceImplUnitTest {
+
+        @TestConfiguration
+        static class EmployeeServiceImplTestContextConfiguration {
+    
+            @Bean
+            public EmployeeService employeeService() {
+                return new EmployeeServiceImpl();
+            }
+        }
+
+        @Autowired
+        private EmployeeService employeeService;
+
+        @MockBean
+        private EmployeeRepository employeeRepository;
+
+        @Before
+        public void setUp() {
+            Employee alex = new Employee("alex");
+
+            Mockito.when(employeeRepository.findByName(alex.getName()))
+            .thenReturn(alex);
+        }
+
+        @Test
+        public void whenValidName_thenEmployeeShouldBeFound() {
+            String name = "alex";
+            Employee found = employeeService.getEmployeeByName(name);
+        
+            assertThat(found.getName())
+            .isEqualTo(name);
+        }
+    }
+
+    Unit testing repo
+    -------------------------------------------
+
+   @ExtendWith(SpringExtension.class)
+    @DataJpaTest
+    public class EmployeeRepositoryIntegrationTest {
+
+        @Autowired
+        private TestEntityManager entityManager;
+
+        @Autowired
+        private EmployeeRepository employeeRepository;
+
+        @Test
+        public void whenFindByName_thenReturnEmployee() {
+            // given
+            Employee alex = new Employee("alex");
+            entityManager.persist(alex);
+            entityManager.flush();
+
+            // when
+            Employee found = employeeRepository.findByName(alex.getName());
+
+            // then
+            assertThat(found.getName())
+            .isEqualTo(alex.getName());
+        }
+
+    }
