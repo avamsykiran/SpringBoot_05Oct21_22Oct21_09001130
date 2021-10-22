@@ -50,6 +50,18 @@ public class Employee {
 	private String emailId;
 	
 	public Employee() {}
+	
+	public Employee(
+			@NotBlank(message = "Full Name is a mandate field") @Size(min = 5, max = 50, message = "Full Name is expected to be 5 to 50 chars in length") String fullName,
+			@NotNull(message = "Salary is a mandate field") @Min(value = 5000, message = "Salary must be atlest 5000") @Max(value = 500000, message = "Salary must be atmax 500000") Double salary,
+			@NotNull(message = "Join Date is a mandate field") @PastOrPresent(message = "Join Date can not be a future date") LocalDate joinDate,
+			@Email(message = "Expecting a vl;aid email id") String emailId) {
+		super();
+		this.fullName = fullName;
+		this.salary = salary;
+		this.joinDate = joinDate;
+		this.emailId = emailId;
+	}
 
 	public Long getEmpId() {
 		return empId;
@@ -89,6 +101,55 @@ public class Employee {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((empId == null) ? 0 : empId.hashCode());
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((joinDate == null) ? 0 : joinDate.hashCode());
+		result = prime * result + ((salary == null) ? 0 : salary.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (emailId == null) {
+			if (other.emailId != null)
+				return false;
+		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (empId == null) {
+			if (other.empId != null)
+				return false;
+		} else if (!empId.equals(other.empId))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (joinDate == null) {
+			if (other.joinDate != null)
+				return false;
+		} else if (!joinDate.equals(other.joinDate))
+			return false;
+		if (salary == null) {
+			if (other.salary != null)
+				return false;
+		} else if (!salary.equals(other.salary))
+			return false;
+		return true;
 	}
 	
 	
